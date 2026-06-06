@@ -21,57 +21,57 @@ A high-performance command-line interface (CLI) utility written in **Go**, desig
 
 The codebase strictly follows the idiomatic Go Standard Project Layout:
 
-yandex-uploader/
-├── cmd/
-│   └── uploader/
-│       └── main.go       # Application entry point (CLI parsing & pipeline orchestration)
-├── internal/
-│   ├── progress/
-│   │   └── progress.go   # io.Reader proxy tracking data transfer metrics and telemetry
-│   ├── report/
-│   │   └── report.go     # Dynamic padding layout engine generating aligned reports
-│   └── yandex/
-│       └── client.go     # Low-level high-throughput REST API client for Yandex.Disk
-├── .gitignore            # Git exclusion rules (isolates tokens, binaries, and local logs)
-├── go.mod                # Go module manifest dependencies
-└── run.bat               # Cross-architecture Windows automation wrapper script
+    yandex-uploader/
+    ├── cmd/
+    │   └── uploader/
+    │       └── main.go       # Application entry point (CLI parsing & pipeline orchestration)
+    ├── internal/
+    │   ├── progress/
+    │   │   └── progress.go   # io.Reader proxy tracking data transfer metrics and telemetry
+    │   ├── report/
+    │   │   └── report.go     # Dynamic padding layout engine generating aligned reports
+    │   └── yandex/
+    │       └── client.go     # Low-level high-throughput REST API client for Yandex.Disk
+    ├── .gitignore            # Git exclusion rules (isolates tokens, binaries, and local logs)
+    ├── go.mod                # Go module manifest dependencies
+    └── run.bat               # Cross-architecture Windows automation wrapper script
 
 ### 🚀 Quick Start & Local Setup
 
 #### 1. Clone the repository
-git clone [https://github.com/YOUR_USERNAME/yandex-uploader.git](https://github.com/YOUR_USERNAME/yandex-uploader.git)
-cd yandex-uploader
+    git clone https://github.com/YOUR_USERNAME/yandex-uploader.git
+    cd yandex-uploader
 
 #### 2. Configure Local Secrets (Security Isolation)
 The repository is designed to prevent your private OAuth credentials from being committed to source control. Create a file named config.local.bat in the root directory:
 
-set YANDEX_TOKEN=your_actual_oauth_token_here
+    set YANDEX_TOKEN=your_actual_oauth_token_here
 
 #### 3. Compile the Binary
 You can cross-compile the program for any specific target system directly from your terminal:
 
 * For Current Development OS:
-  go build -o uploader ./cmd/uploader
+    go build -o uploader ./cmd/uploader
 
 * For 32-bit Windows Target (Windows 7/8/10 x86):
-  GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o yandex-uploader32.exe ./cmd/uploader
+    GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o yandex-uploader32.exe ./cmd/uploader
 
 * For Native 64-bit Windows:
-  GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
+    GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
 
 ### 💻 Usage
 
 Execute the pipeline via terminal or leverage the automated run.bat wrapper, which implicitly evaluates your processor architecture and seamlessly injects the token from config.local.bat.
 
 #### Operational Examples:
-# Upload a single directory container
-run.bat -path="C:\Users\User\Documents\Reports"
+    # Upload a single directory container
+    run.bat -path="C:\Users\User\Documents\Reports"
 
-# Transmit an isolated archive and route logs to a custom destination
-run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
+    # Transmit an isolated archive and route logs to a custom destination
+    run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
 
-# Process multiple filesystem path arguments sequentially
-run.bat "C:\Data" "D:\Backup.rar"
+    # Process multiple filesystem path arguments sequentially
+    run.bat "C:\Data" "D:\Backup.rar"
 
 #### Available CLI Flag Parameters:
 | Flag | Data Type | Description |
@@ -84,13 +84,13 @@ run.bat "C:\Data" "D:\Backup.rar"
 
 Upon processing termination, the utility outputs a clean upload_report.txt structure where routing operators align perfectly regardless of varying source string lengths:
 
-=== DOWNLOAD LINKS (2026-06-06 20:15:32) ===
-[Folder] Reports (Entire directory container tree) -> [https://disk.yandex.ru/d/exampleRootDirID](https://disk.yandex.ru/d/exampleRootDirID)
-[Folder]   ├── Quarter1                            -> [https://disk.yandex.ru/d/exampleSubDirID1](https://disk.yandex.ru/d/exampleSubDirID1)
-[File]     ├── financial_statement.xlsx            -> [https://disk.yandex.ru/d/exampleFileID1](https://disk.yandex.ru/d/exampleFileID1)
-[File]     ├── summary_presentation.pdf            -> [https://disk.yandex.ru/d/exampleFileID2](https://disk.yandex.ru/d/exampleFileID2)
+    === DOWNLOAD LINKS (2026-06-06 20:15:32) ===
+    [Folder] Reports (Entire directory container tree) -> https://disk.yandex.ru/d/exampleRootDirID
+    [Folder]   ├── Quarter1                            -> https://disk.yandex.ru/d/exampleSubDirID1
+    [File]     ├── financial_statement.xlsx            -> https://disk.yandex.ru/d/exampleFileID1
+    [File]     ├── summary_presentation.pdf            -> https://disk.yandex.ru/d/exampleFileID2
 
-> 🔒 License & Disclaimer: Distributed under the MIT License. Always ensure your config.local.bat and compiled *.exe` binaries remain untracked within your local .gitignore setup prior to shifting upstream pushes.
+> 🔒 License & Disclaimer: Distributed under the MIT License. Always ensure your config.local.bat and compiled *.exe binaries remain untracked within your local .gitignore setup prior to shifting upstream pushes.
 
 ---
 
@@ -111,57 +111,57 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
 
 Архитектура выполнена в соответствии с общепринятым стандартом Go Standard Project Layout:
 
-yandex-uploader/
-├── cmd/
-│   └── uploader/
-│       └── main.go       # Точка входа, обработка флагов CLI и запуск конвейера
-├── internal/
-│   ├── progress/
-│   │   └── progress.go   # Обёртка над io.Reader для калькуляции метрик и вывода прогресса
-│   ├── report/
-│   │   └── report.go     # Движок форматирования и генерации выровненных отчетов
-│   └── yandex/
-│       └── client.go     # Низкоуровневый REST API клиент для работы с Яндекс.Диском
-├── .gitignore            # Список исключений для Git (скрывает токены, бинарники и логи)
-├── go.mod                # Манифест Go-модуля
-└── run.bat               # Кросс-архитектурный скрипт автоматизации запуска для Windows
+    yandex-uploader/
+    ├── cmd/
+    │   └── uploader/
+    │       └── main.go       # Точка входа, обработка флагов CLI и запуск конвейера
+    ├── internal/
+    │   ├── progress/
+    │   │   └── progress.go   # Обёртка над io.Reader для калькуляции метрик и вывода прогресса
+    │   ├── report/
+    │   │   └── report.go     # Движок форматирования и генерации выровненных отчетов
+    │   └── yandex/
+    │       └── client.go     # Низкоуровневый REST API клиент для работы с Яндекс.Диском
+    ├── .gitignore            # Список исключений для Git (скрывает токены, бинарники и логи)
+    ├── go.mod                # Манифест Go-модуля
+    └── run.bat               # Кросс-архитектурный скрипт автоматизации запуска для Windows
 
 ### 🚀 Быстрый старт и локальная настройка
 
 #### 1. Клонирование репозитория
-git clone [https://github.com/YOUR_USERNAME/yandex-uploader.git](https://github.com/YOUR_USERNAME/yandex-uploader.git)
-cd yandex-uploader
+    git clone https://github.com/YOUR_USERNAME/yandex-uploader.git
+    cd yandex-uploader
 
 #### 2. Настройка безопасности (Секреты)
 Проект настроен так, чтобы ваш OAuth-токен никогда не попал в историю коммитов. Создайте в корне проекта файл config.local.bat:
 
-set YANDEX_TOKEN=ваш_реальный_oauth_токен_здесь
+    set YANDEX_TOKEN=ваш_реальный_oauth_токен_здесь
 
 #### 3. Сборка приложения
 Вы можете скомпилировать проект под любую целевую платформу:
 
 * Для текущей ОС (разработка):
-  go build -o uploader ./cmd/uploader
+    go build -o uploader ./cmd/uploader
 
 * Для 32-битной Windows (Windows 7/8/10 x86):
-  GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o yandex-uploader32.exe ./cmd/uploader
+    GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o yandex-uploader32.exe ./cmd/uploader
 
 * Для 64-битной Windows:
-  GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
+    GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
 
 ### 💻 Использование
 
 Запуск осуществляется через командную строку или с помощью универсального скрипта run.bat, который сам определит архитектуру вашего процессора и подтянет токен из config.local.bat.
 
 #### Примеры команд:
-# Загрузка одной конкретной папки
-run.bat -path="C:\Users\User\Documents\Reports"
+    # Загрузка одной конкретной папки
+    run.bat -path="C:\Users\User\Documents\Reports"
 
-# Загрузка одного файла с указанием кастомного пути для сохранения отчета
-run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
+    # Загрузка одного файла с указанием кастомного пути для сохранения отчета
+    run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
 
-# Массовая загрузка нескольких аргументов подряд
-run.bat "C:\Data" "D:\Backup.rar"
+    # Массовая загрузка нескольких аргументов подряд
+    run.bat "C:\Data" "D:\Backup.rar"
 
 #### Доступные флаги CLI:
 | Флаг | Тип данных | Описание |
@@ -174,10 +174,10 @@ run.bat "C:\Data" "D:\Backup.rar"
 
 После завершения работы утилита формирует файл upload_report.txt, где все стрелочки выровнены строго по вертикали, независимо от длины названий файлов:
 
-=== DOWNLOAD LINKS (2026-06-06 20:15:32) ===
-[Folder] Reports (Entire directory container tree) -> [https://disk.yandex.ru/d/exampleRootDirID](https://disk.yandex.ru/d/exampleRootDirID)
-[Folder]   ├── Quarter1                            -> [https://disk.yandex.ru/d/exampleSubDirID1](https://disk.yandex.ru/d/exampleSubDirID1)
-[File]     ├── financial_statement.xlsx            -> [https://disk.yandex.ru/d/exampleFileID1](https://disk.yandex.ru/d/exampleFileID1)
-[File]     ├── summary_presentation.pdf            -> [https://disk.yandex.ru/d/exampleFileID2](https://disk.yandex.ru/d/exampleFileID2)
+    === DOWNLOAD LINKS (2026-06-06 20:15:32) ===
+    [Folder] Reports (Entire directory container tree) -> https://disk.yandex.ru/d/exampleRootDirID
+    [Folder]   ├── Quarter1                            -> https://disk.yandex.ru/d/exampleSubDirID1
+    [File]     ├── financial_statement.xlsx            -> https://disk.yandex.ru/d/exampleFileID1
+    [File]     ├── summary_presentation.pdf            -> https://disk.yandex.ru/d/exampleFileID2
 
-> 🔒 Лицензия: Код распространяется под лицензией MIT. Перед отправкой изменений на GitHub убедитесь, что файлы config.local.bat, *.exe` и upload_report.txt` находятся в списке исключений вашего .gitignore.
+> 🔒 Лицензия: Код распространяется под лицензией MIT. Перед отправкой изменений на GitHub убедитесь, что файлы config.local.bat, *.exe и upload_report.txt находятся в списке исключений вашего .gitignore.
