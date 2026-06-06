@@ -67,7 +67,7 @@ You can cross-compile the program for any specific target system directly from y
 
 #### Available CLI Flag Parameters:
 
-| Flag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Data Type | Description |
+| Flag | Data Type | Description |
 | :--- | :--- | :--- |
 | `-token` | `string` | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
 | `-path` | `string` | Local filesystem identifier path targeting a file or a folder for processing |
@@ -180,7 +180,7 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
     set YANDEX_TOKEN=ваш_реальный_oauth_токен_здесь
 
 #### 3. Сборка приложения
-Вы можете скомпилировать проект под любую целевую платформу прямо из вашей текущей консоли:
+Вы можете скомпилировать проект под любую цельческую платформу прямо из вашей текущей консоли:
 
 * **Для 32-битной Windows (Windows 7/8/10 x86):**
     GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o yandex-uploader32.exe ./cmd/uploader
@@ -198,7 +198,7 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
 
 #### Доступные флаговые параметры CLI:
 
-| Флаг&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип данных | Описание |
+| Флаг | Тип данных | Описание |
 | :--- | :--- | :--- |
 | `-token` | `string` | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
 | `-path` | `string` | Путь к локальному файлу или папке для загрузки |
