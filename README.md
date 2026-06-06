@@ -29,7 +29,7 @@ The codebase strictly follows the idiomatic Go Standard Project Layout:
     │       └── client.go     # Low-level high-throughput REST API client for Yandex.Disk
     ├── .gitignore            # Git exclusion rules (isolates tokens, binaries, and local logs)
     ├── go.mod                # Go module manifest dependencies
-    └── run.bat               # Cross-architecture Windows automation wrapper script
+    └── upload.bat               # Cross-architecture Windows automation wrapper script
 
 ---
 
@@ -75,7 +75,7 @@ You can cross-compile the program for any specific target system directly from y
 
 * **Standard Directory Backup (Implicit Token from config.local.bat):**
 ```cmd
-    run.bat -path="C:\Users\User\Documents\Reports"
+    upload.bat -path="C:\Users\User\Documents\Reports"
 ```
 
 * **Passing the OAuth Token Directly via CLI Flag (Bypassing config files / overriding env):**
@@ -86,12 +86,12 @@ You can cross-compile the program for any specific target system directly from y
 * **Bulk Processing via Positional Arguments (Processing Multiple Targets at Once):**
     The utility natively evaluates trailing positional targets sequentially.
 ```cmd
-    run.bat "C:\ProjectA" "D:\Archive.zip" "E:\Images"
+    upload.bat "C:\ProjectA" "D:\Archive.zip" "E:\Images"
 ```
 
 * **Routing the Generated Link Report to a Dedicated Share or Custom Log Path:**
 ```cmd
-    run.bat -path="C:\Logs" -report="N:\SharedLogs\upload_summary.txt"
+    upload.bat -path="C:\Logs" -report="N:\SharedLogs\upload_summary.txt"
 ```
 
 ### Linux & macOS Environments (Terminal)
