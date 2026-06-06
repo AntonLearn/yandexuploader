@@ -24,8 +24,10 @@ func main() {
 		token = os.Getenv("YANDEX_TOKEN")
 	}
 
+	// Enhanced token validation routing execution errors directly to the standard error stream (os.Stderr).
 	if token == "" {
-		fmt.Println("Error execution failure: OAuth token credentials identifier parameter is missing.")
+		fmt.Fprintln(os.Stderr, "Error execution failure: OAuth token credentials identifier parameter is missing.")
+		fmt.Fprintln(os.Stderr, "Please provide a valid token via the -token flag or set the YANDEX_TOKEN environment variable.")
 		os.Exit(1)
 	}
 
@@ -36,8 +38,9 @@ func main() {
 		inputPaths = []string{*pathFlag}
 	}
 
+	// Maintain logging consistency by redirecting missing target path exceptions to os.Stderr.
 	if len(inputPaths) == 0 {
-		fmt.Println("Error execution failure: No valid local target paths were specified for ingestion pipelines processing.")
+		fmt.Fprintln(os.Stderr, "Error execution failure: No valid local target paths were specified for ingestion pipelines processing.")
 		os.Exit(1)
 	}
 
@@ -73,7 +76,7 @@ func main() {
 			leftText := fmt.Sprintf("[File]  %s", filepath.Base(targetPath))
 
 			if err == nil {
-				// Вызываем обновленный публичный метод
+				// Trigger the updated public asset publishing routine to obtain a delivery URL.
 				pubLink, errPub := diskClient.PublishAndGetLink(remotePath)
 				if errPub != nil {
 					logRegistry = append(logRegistry, report.Item{Left: leftText, Right: fmt.Sprintf("(Publish failed: %v)", errPub)})

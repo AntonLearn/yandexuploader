@@ -65,34 +65,34 @@ You can cross-compile the program for any specific target system directly from y
 
 ### Available CLI Flag Parameters
 
-| Flag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Data Type | Description |
+| Flag | Data Type | Description |
 | :--- | :--- | :--- |
-| <code>&#8209;token</code> | `string` | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
-| <code>&#8209;path</code> | `string` | Local filesystem identifier path targeting a file or a folder for processing |
-| <code>&#8209;report</code> | `string` | Explicit destination output path for compilation metrics (defaults to upload_report.txt) |
+| <code>&#8209;token</code> | `string` | Yandex.Disk OAuth validation token. Falls back to the `YANDEX_TOKEN` environment variable if not specified. **This flag takes absolute precedence over environment variables.** |
+| <code>&#8209;path</code> | `string` | Local filesystem identifier path targeting a file or a folder for processing. |
+| <code>&#8209;report</code> | `string` | Explicit destination output path for compilation metrics. If omitted, defaults to an `upload_report.txt` file generated next to the application binary execution context. | phot |
 
 ### Windows Environments (CMD / PowerShell)
 
 * **Standard Directory Backup (Implicit Token from config.local.bat):**
 ```cmd
     run.bat -path="C:\Users\User\Documents\Reports"
-    ```
+```
 
-* **Passing the OAuth Token Directly via CLI Flag (Bypassing config files):**
+* **Passing the OAuth Token Directly via CLI Flag (Bypassing config files / overriding env):**
 ```cmd
     yandex-uploader.exe -token="AgAAAAA..." -path="D:\Backups\database.sql"
-    ```
+```
 
 * **Bulk Processing via Positional Arguments (Processing Multiple Targets at Once):**
     The utility natively evaluates trailing positional targets sequentially.
 ```cmd
     run.bat "C:\ProjectA" "D:\Archive.zip" "E:\Images"
-    ```
+```
 
 * **Routing the Generated Link Report to a Dedicated Share or Custom Log Path:**
 ```cmd
     run.bat -path="C:\Logs" -report="N:\SharedLogs\upload_summary.txt"
-    ```
+```
 
 ### Linux & macOS Environments (Terminal)
 
@@ -100,24 +100,24 @@ You can cross-compile the program for any specific target system directly from y
 ```bash
     chmod +x ./yandex-uploader-linux
     YANDEX_TOKEN="your_oauth_token" ./yandex-uploader-linux -path="/var/www/html/uploads"
-    ```
+```
 
 * **Explicit Token and Target Flag Definition:**
 ```bash
     chmod +x ./yandex-uploader-mac
     ./yandex-uploader-mac -token="your_oauth_token" -path="/Users/Mac/Desktop/Assets"
-    ```
+```
 
 * **Batch Multi-Path Transmission under Linux:**
 ```bash
     YANDEX_TOKEN="your_oauth_token" ./yandex-uploader-linux "/etc/nginx/nginx.conf" "/var/log/syslog"
-    ```
+```
 
 * **Automating via Headless Cron Job (Nightly Unattended Server Backups):**
     Open your crontab editor via `crontab -e` and append the following configuration to automate uploads every night at 2:00 AM:
 ```text
     0 2 * * * export YANDEX_TOKEN="your_oauth_token" && /usr/local/bin/yandex-uploader-linux -path="/backup/daily" -report="/var/log/uploader_report.txt"
-    ```
+```
 
 ---
 
@@ -127,8 +127,9 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
 
     === DOWNLOAD LINKS (2026-06-06 20:15:32) ===
     [Folder] Reports (Entire directory container tree) -> https://disk.yandex.ru/d/exampleRootDirID
-    [Folder]   ├── Quarter1                            -> https://disk.yandex.ru/d/exampleSubDirID1
-    [File]     ├── financial_statement.xlsx            -> https://disk.yandex.ru/d/exampleFileID1
-    [File]     ├── summary_presentation.pdf            -> https://disk.yandex.ru/d/exampleFileID2
+    [Folder]   ├── Quarter1                             -> https://disk.yandex.ru/d/exampleSubDirID1
+    [File]     ├── financial_statement.xlsx             -> https://disk.yandex.ru/d/exampleFileID1
+    [File]     ├── summary_presentation.pdf             -> https://disk.yandex.ru/d/exampleFileID2
 
 > 🔒 License & Disclaimer: Distributed under the MIT License. Always ensure your configuration files, secrets, and compiled binary targets remain untracked within your local `.gitignore` configuration.
+```
