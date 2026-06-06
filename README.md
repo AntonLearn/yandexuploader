@@ -76,9 +76,9 @@ Execute the pipeline via terminal or leverage the automated run.bat wrapper, whi
 #### Available CLI Flag Parameters:
 | Flag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Data Type | Description |
 | :--- | :--- | :--- |
-| `&#8209;token` | `string` | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
-| `&#8209;path` | `string` | Local filesystem identifier path targeting a file or a folder for processing |
-| `&#8209;report` | `string` | Explicit destination output path for compilation metrics (defaults to upload_report.txt) |
+| `-token` | `string` | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
+| `-path` | `string` | Local filesystem identifier path targeting a file or a folder for processing |
+| `-report` | `string` | Explicit destination output path for compilation metrics (defaults to upload_report.txt) |
 
 ### 📄 Generated Report Sample
 
@@ -166,9 +166,9 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
 #### Доступные флаги CLI:
 | Флаг&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип данных | Описание |
 | :--- | :--- | :--- |
-| `&#8209;token` | `string` | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
-| `&#8209;path` | `string` | Путь к локальному файлу или папке для загрузки |
-| `&#8209;report` | `string` | Кастомный путь для генерации файла отчета (по умолчанию: upload_report.txt рядом с exe) |
+| `-token` | `string` | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
+| `-path` | `string` | Путь к локальному файлу или папке для загрузки |
+| `-report` | `string` | Кастомный путь для генерации файла отчета (по умолчанию: upload_report.txt рядом с exe) |
 
 ### 📄 Пример генерируемого отчета
 
