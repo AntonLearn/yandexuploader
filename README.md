@@ -63,25 +63,7 @@ You can cross-compile the program for any specific target system directly from y
 * **For macOS (Apple Silicon M1/M2/M3):**
     GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o yandex-uploader-mac ./cmd/uploader
 
-### 💻 Usage
-
-#### On Windows:
-Execute the pipeline via terminal or leverage the automated `run.bat` wrapper, which implicitly evaluates your processor architecture and seamlessly injects the token from `config.local.bat`.
-
-    # Upload a single directory container
-    run.bat -path="C:\Users\User\Documents\Reports"
-
-    # Transmit an isolated archive and route logs to a custom destination
-    run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
-
-#### On Linux / macOS:
-Since batch files are Windows-specific, pass the environment variable directly inline alongside execution flags:
-
-    # Make the binary executable
-    chmod +x ./yandex-uploader-linux
-
-    # Run the transmission pipeline
-    YANDEX_TOKEN="your_oauth_token" ./yandex-uploader-linux -path="/home/user/documents"
+### 💻 Usage & Operational Examples
 
 #### Available CLI Flag Parameters:
 | Flag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Data Type | Description |
@@ -89,6 +71,54 @@ Since batch files are Windows-specific, pass the environment variable directly i
 | `-token` | `string` | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
 | `-path` | `string` | Local filesystem identifier path targeting a file or a folder for processing |
 | `-report` | `string` | Explicit destination output path for compilation metrics (defaults to upload_report.txt) |
+
+#### Windows Environments (CMD / PowerShell)
+
+* **Standard Directory Backup (Implicit Token from config.local.bat):**
+```cmd
+    run.bat -path="C:\Users\User\Documents\Reports"
+    ```
+
+* **Passing the OAuth Token Directly via CLI Flag (Bypassing config files):**
+```cmd
+    yandex-uploader.exe -token="AgAAAAA..." -path="D:\Backups\database.sql"
+    ```
+
+* **Bulk Processing via Positional Arguments (Processing Multiple Targets at Once):**
+    The utility natively evaluates trailing positional targets sequentially.
+```cmd
+    run.bat "C:\ProjectA" "D:\Archive.zip" "E:\Images"
+    ```
+
+* **Routing the Generated Link Report to a Dedicated Share or Custom Log Path:**
+```cmd
+    run.bat -path="C:\Logs" -report="N:\SharedLogs\upload_summary.txt"
+    ```
+
+#### Linux & macOS Environments (Terminal)
+
+* **Standard Execution with Inline Environment Variable Injection:**
+```bash
+    chmod +x ./yandex-uploader-linux
+    YANDEX_TOKEN="your_oauth_token" ./yandex-uploader-linux -path="/var/www/html/uploads"
+    ```
+
+* **Explicit Token and Target Flag Definition:**
+```bash
+    chmod +x ./yandex-uploader-mac
+    ./yandex-uploader-mac -token="your_oauth_token" -path="/Users/Mac/Desktop/Assets"
+    ```
+
+* **Batch Multi-Path Transmission under Linux:**
+```bash
+    YANDEX_TOKEN="your_oauth_token" ./yandex-uploader-linux "/etc/nginx/nginx.conf" "/var/log/syslog"
+    ```
+
+* **Automating via Headless Cron Job (Nightly Unattended Server Backups):**
+    Open your crontab editor via `crontab -e` and append the following configuration to automate uploads every night at 2:00 AM:
+```text
+    0 2 * * * export YANDEX_TOKEN="your_oauth_token" && /usr/local/bin/yandex-uploader-linux -path="/backup/daily" -report="/var/log/uploader_report.txt"
+    ```
 
 ### 📄 Generated Report Sample
 
@@ -157,31 +187,13 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
 * **Для 64-битной Windows:**
     GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
 
-* **Для Linux (64-bit Server/Desktop):**
+* **For Linux (64-bit Server/Desktop):**
     GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader-linux ./cmd/uploader
 
 * **Для macOS (Apple Silicon M1/M2/M3):**
     GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o yandex-uploader-mac ./cmd/uploader
 
-### 💻 Использование
-
-#### На Windows:
-Запуск осуществляется через командную строку или с помощью универсального скрипта `run.bat`, который сам определит архитектуру вашего процессора и подтянет токен из `config.local.bat`.
-
-    # Загрузка одной конкретной папки
-    run.bat -path="C:\Users\User\Documents\Reports"
-
-    # Загрузка одного файла с указанием кастомного пути для сохранения отчета
-    run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
-
-#### На Linux / macOS:
-Так как батники на Unix-системах не поддерживаются, передавайте переменную окружения с токеном прямо перед вызовом исполняемого файла:
-
-    # Выдаем права на выполнение бинарнику
-    chmod +x ./yandex-uploader-linux
-
-    # Запускаем загрузку папки
-    YANDEX_TOKEN="ваш_oauth_токен" ./yandex-uploader-linux -path="/home/user/documents"
+### 💻 Использование и примеры работы
 
 #### Доступные флаговые параметры CLI:
 | Флаг&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип данных | Описание |
@@ -189,6 +201,54 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
 | `-token` | `string` | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
 | `-path` | `string` | Путь к локальному файлу или папке для загрузки |
 | `-report` | `string` | Кастомный путь для генерации файла отчета (по умолчанию: upload_report.txt рядом с exe) |
+
+#### Окружение Windows (Командная строка / PowerShell)
+
+* **Стандартная загрузка папки (токен неявно подтягивается из config.local.bat):**
+```cmd
+    run.bat -path="C:\Users\User\Documents\Reports"
+    ```
+
+* **Прямая передача OAuth-токена через флаг (без использования файлов конфигурации):**
+```cmd
+    yandex-uploader.exe -token="AgAAAAA..." -path="D:\Backups\database.sql"
+    ```
+
+* **Пакетная массовая загрузка нескольких папок и файлов за один запуск:**
+    Утилита нативно поддерживает передачу списка путей в качестве последующих аргументов.
+```cmd
+    run.bat "C:\ProjectA" "D:\Archive.zip" "E:\Images"
+    ```
+
+* **Сохранение итогового отчета на сетевой диск или в выделенную папку логов:**
+```cmd
+    run.bat -path="C:\Logs" -report="N:\SharedLogs\upload_summary.txt"
+    ```
+
+#### Окружение Linux и macOS (Терминал)
+
+* **Стандартный запуск с inline-передачей токена в переменной окружения:**
+```bash
+    chmod +x ./yandex-uploader-linux
+    YANDEX_TOKEN="ваш_oauth_токен" ./yandex-uploader-linux -path="/var/www/html/uploads"
+    ```
+
+* **Запуск с явным указанием токена и целевого пути через флаги:**
+```bash
+    chmod +x ./yandex-uploader-mac
+    ./yandex-uploader-mac -token="ваш_oauth_токен" -path="/Users/Mac/Desktop/Assets"
+    ```
+
+* **Массовая параллельно-последовательная загрузка нескольких путей в Linux:**
+```bash
+    YANDEX_TOKEN="ваш_oauth_токен" ./yandex-uploader-linux "/etc/nginx/nginx.conf" "/var/log/syslog"
+    ```
+
+* **Автоматизация через Cron (настройка ежедневных бэкапов сервера по расписанию):**
+    Откройте редактор планировщика командой `crontab -e` и добавьте следующую строку для автоматического запуска утилиты каждую ночь в 02:00:
+```text
+    0 2 * * * export YANDEX_TOKEN="ваш_oauth_токен" && /usr/local/bin/yandex-uploader-linux -path="/backup/daily" -report="/var/log/uploader_report.txt"
+    ```
 
 ### 📄 Пример генерируемого отчета
 
