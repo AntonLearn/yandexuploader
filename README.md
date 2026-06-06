@@ -36,7 +36,7 @@ The codebase strictly follows the idiomatic Go Standard Project Layout:
 ## 🚀 Quick Start & Local Setup
 
 ### 1. Clone the repository
-    git clone https://github.com/YOUR_USERNAME/yandex-uploader.git
+    git clone https://github.com/antonlearn/yandex-uploader.git
     cd yandex-uploader
 
 ### 2. Configure Local Secrets (Security Isolation)
