@@ -76,9 +76,9 @@ Execute the pipeline via terminal or leverage the automated run.bat wrapper, whi
 #### Available CLI Flag Parameters:
 | Flag | Data Type | Description |
 | :--- | :--- | :--- |
-| -token | string | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
-| -path | string | Local filesystem identifier path targeting a file or a folder for processing |
-| -report | string | Explicit destination output path for compilation metrics (defaults to upload_report.txt) |
+| `-token` | `string` | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
+| `-path` | `string` | Local filesystem identifier path targeting a file or a folder for processing |
+| `-report` | `string` | Explicit destination output path for compilation metrics (defaults to upload_report.txt) |
 
 ### 📄 Generated Report Sample
 
@@ -104,7 +104,7 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
 * **Потоковый индикатор прогресса:** Отслеживание процентов выполнения и скорости передачи данных в МБ/сек в реальном времени с оптимизированным I/O оверхедом (обновление раз в 200 мс).
 * **Автоматическая публикация:** Автономное получение публичных ссылок на каждый файл и папку сразу после завершения их трансфера.
 * **Умное логирование:** Создание кастомизированного текстового отчета. Все колонки выравниваются по ширине с использованием UTF-8 рун, а строки разделяются по стандарту Windows (CRLF).
-* **Безопасная архитектура:** Готовая конфигурация для изоляции OAuth-токенов в локальной среде (.gitignore), защищающая от случайной утечки секретов в публичный репозиторий.
+* **Безопасная архитектура:** Готическая конфигурация для изоляции OAuth-токенов в локальной среде (.gitignore), защищающая от случайной утечки секретов в публичный репозиторий.
 * **Высокая совместимость:** Оптимизировано под архитектуру 386 для бесперебойной работы на старых 32-битных операционных системах (включая Windows 7).
 
 ### 📁 Структура проекта
@@ -166,9 +166,9 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
 #### Доступные флаги CLI:
 | Флаг | Тип данных | Описание |
 | :--- | :--- | :--- |
-| -token | string | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
-| -path | string | Путь к локальному файлу или папке для загрузки |
-| -report | string | Кастомный путь для генерации файла отчета (по умолчанию: upload_report.txt рядом с exe) |
+| `-token` | `string` | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
+| `-path` | `string` | Путь к локальному файлу или папке для загрузки |
+| `-report` | `string` | Кастомный путь для генерации файла отчета (по умолчанию: upload_report.txt рядом с exe) |
 
 ### 📄 Пример генерируемого отчета
 
