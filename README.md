@@ -247,7 +247,7 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
     ```
 
 * **Автоматизация через Cron (настройка ежедневных бэкапов сервера по расписанию):**
-    Откройте редактор планировщика командой `crontab -e` and добавьте следующую строку для автоматического запуска утилиты каждую ночь в 02:00:
+    Откройте редактор планировщика командой `crontab -e` и добавьте следующую строку для автоматического запуска утилиты каждую ночь в 02:00:
 ```text
     0 2 * * * export YANDEX_TOKEN="ваш_oauth_токен" && /usr/local/bin/yandex-uploader-linux -path="/backup/daily" -report="/var/log/uploader_report.txt"
     ```
