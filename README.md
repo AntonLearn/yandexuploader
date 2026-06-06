@@ -66,6 +66,7 @@ You can cross-compile the program for any specific target system directly from y
 ### 💻 Usage & Operational Examples
 
 #### Available CLI Flag Parameters:
+
 | Flag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Data Type | Description |
 | :--- | :--- | :--- |
 | `-token` | `string` | Yandex.Disk OAuth validation token (falls back to YANDEX_TOKEN environment variable) |
@@ -85,7 +86,7 @@ You can cross-compile the program for any specific target system directly from y
     ```
 
 * **Bulk Processing via Positional Arguments (Processing Multiple Targets at Once):**
-    The utility natively evaluates trailing positional targets sequentially.
+The utility natively evaluates trailing positional targets sequentially.
 ```cmd
     run.bat "C:\ProjectA" "D:\Archive.zip" "E:\Images"
     ```
@@ -187,7 +188,7 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
 * **Для 64-битной Windows:**
     GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
 
-* **For Linux (64-bit Server/Desktop):**
+* **Для Linux (64-bit Server/Desktop):**
     GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader-linux ./cmd/uploader
 
 * **Для macOS (Apple Silicon M1/M2/M3):**
@@ -196,6 +197,7 @@ Upon processing termination, the utility outputs a clean `upload_report.txt` str
 ### 💻 Использование и примеры работы
 
 #### Доступные флаговые параметры CLI:
+
 | Флаг&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип данных | Описание |
 | :--- | :--- | :--- |
 | `-token` | `string` | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
