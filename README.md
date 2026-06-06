@@ -86,7 +86,7 @@ You can cross-compile the program for any specific target system directly from y
     ```
 
 * **Bulk Processing via Positional Arguments (Processing Multiple Targets at Once):**
-The utility natively evaluates trailing positional targets sequentially.
+    The utility natively evaluates trailing positional targets sequentially.
 ```cmd
     run.bat "C:\ProjectA" "D:\Archive.zip" "E:\Images"
     ```
