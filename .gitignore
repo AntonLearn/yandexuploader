@@ -1,0 +1,20 @@
+# Git internal repository metadata (Ignored by Git automatically by default)
+.git/
+
+# Local secret configuration containing your Yandex token
+config.local.bat
+
+# Compiled executable binaries for Windows/Linux
+*.exe
+
+# Locally generated upload logs and reports
+upload_report.txt
+
+# Go distribution archive download
+go1.20.14.linux-amd64.tar.gz
+
+# Legacy or backup source files
+main.go.*
+
+# Local token metadata or temporary token info files
+tokeninfo
