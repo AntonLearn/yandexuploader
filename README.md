@@ -16,6 +16,7 @@ A high-performance command-line interface (CLI) utility written in **Go**, desig
 * **Smart Layout Reporting:** Generates clean, padded text reports. Column positions are dynamically calculated using UTF-8 runes to match padding lengths, with native Windows line endings (CRLF).
 * **Secure Architecture:** Pre-configured environment decoupling (.gitignore) keeps your sensitive OAuth API credentials safe from accidental upstream leakage.
 * **Legacy System Back-Compatibility:** Fully optimized for the 386 (32-bit) architecture to run reliably on legacy server environments and older OS builds (e.g., Windows 7).
+* **Cross-Platform Native Code:** Written in pure Go with no OS-specific bindings, enabling native execution across Windows, Linux, and macOS.
 
 ### 📁 Project Structure
 
@@ -43,35 +44,44 @@ The codebase strictly follows the idiomatic Go Standard Project Layout:
     cd yandex-uploader
 
 #### 2. Configure Local Secrets (Security Isolation)
-The repository is designed to prevent your private OAuth credentials from being committed to source control. Create a file named config.local.bat in the root directory:
+The repository is designed to prevent your private OAuth credentials from being committed to source control. For Windows users, create a file named `config.local.bat` in the root directory:
 
     set YANDEX_TOKEN=your_actual_oauth_token_here
 
 #### 3. Compile the Binary
 You can cross-compile the program for any specific target system directly from your terminal:
 
-* For Current Development OS:
-    go build -o uploader ./cmd/uploader
-
-* For 32-bit Windows Target (Windows 7/8/10 x86):
+* **For 32-bit Windows Target (Windows 7/8/10 x86):**
     GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o yandex-uploader32.exe ./cmd/uploader
 
-* For Native 64-bit Windows:
+* **For Native 64-bit Windows:**
     GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
+
+* **For Linux (64-bit Server/Desktop):**
+    GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader-linux ./cmd/uploader
+
+* **For macOS (Apple Silicon M1/M2/M3):**
+    GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o yandex-uploader-mac ./cmd/uploader
 
 ### 💻 Usage
 
-Execute the pipeline via terminal or leverage the automated run.bat wrapper, which implicitly evaluates your processor architecture and seamlessly injects the token from config.local.bat.
+#### On Windows:
+Execute the pipeline via terminal or leverage the automated `run.bat` wrapper, which implicitly evaluates your processor architecture and seamlessly injects the token from `config.local.bat`.
 
-#### Operational Examples:
     # Upload a single directory container
     run.bat -path="C:\Users\User\Documents\Reports"
 
     # Transmit an isolated archive and route logs to a custom destination
     run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
 
-    # Process multiple filesystem path arguments sequentially
-    run.bat "C:\Data" "D:\Backup.rar"
+#### On Linux / macOS:
+Since batch files are Windows-specific, pass the environment variable directly inline alongside execution flags:
+
+    # Make the binary executable
+    chmod +x ./yandex-uploader-linux
+
+    # Run the transmission pipeline
+    YANDEX_TOKEN="your_oauth_token" ./yandex-uploader-linux -path="/home/user/documents"
 
 #### Available CLI Flag Parameters:
 | Flag&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Data Type | Description |
@@ -82,7 +92,7 @@ Execute the pipeline via terminal or leverage the automated run.bat wrapper, whi
 
 ### 📄 Generated Report Sample
 
-Upon processing termination, the utility outputs a clean upload_report.txt structure where routing operators align perfectly regardless of varying source string lengths:
+Upon processing termination, the utility outputs a clean `upload_report.txt` structure where routing operators align perfectly regardless of varying source string lengths:
 
     === DOWNLOAD LINKS (2026-06-06 20:15:32) ===
     [Folder] Reports (Entire directory container tree) -> https://disk.yandex.ru/d/exampleRootDirID
@@ -90,13 +100,13 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
     [File]     ├── financial_statement.xlsx            -> https://disk.yandex.ru/d/exampleFileID1
     [File]     ├── summary_presentation.pdf            -> https://disk.yandex.ru/d/exampleFileID2
 
-> 🔒 License & Disclaimer: Distributed under the MIT License. Always ensure your config.local.bat and compiled *.exe binaries remain untracked within your local .gitignore setup prior to shifting upstream pushes.
+> 🔒 License & Disclaimer: Distributed under the MIT License. Always ensure your configuration files, secrets, and compiled binary targets remain untracked within your local `.gitignore` configuration.
 
 ---
 
 ## Русский
 
-Утилита командной строки (CLI) на языке **Go**, предназначенная для высокопроизводительной массовой загрузки файлов и папок на Яндекс.Диск. Программа автоматически воссоздает локальную структуру директорий в облаке, публикует загруженные объекты и генерирует аккуратно выровненный текстовый отчет с публичными ссылками, совместимый с любыми текстовыми редакторами на Windows.
+Утилита командной строки (CLI) на языке **Go**, предназначенная для высокопроизводительной массовой загрузки файлов и папок на Яндекс.Диск. Программа автоматически воссоздает локальную структуру директорий в облаке, публикует загруженные объекты и генерирует аккуратно выровненный текстовый отчет с публичными ссылками, совместимый с любыми текстовыми редакторами.
 
 ### ✨ Основные возможности
 
@@ -106,6 +116,7 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
 * **Умное логирование:** Создание кастомизированного текстового отчета. Все колонки выравниваются по ширине с использованием UTF-8 рун, а строки разделяются по стандарту Windows (CRLF).
 * **Безопасная архитектура:** Готовая конфигурация для изоляции OAuth-токенов в локальной среде (.gitignore), защищающая от случайной утечки секретов в публичный репозиторий.
 * **Высокая совместимость:** Оптимизировано под архитектуру 386 для бесперебойной работы на старых 32-битных операционных системах (включая Windows 7).
+* **Полная кроссплатформенность:** Написано на чистом Go без платформозависимых зависимостей, благодаря чему утилиту можно собрать под Windows, Linux и macOS.
 
 ### 📁 Структура проекта
 
@@ -133,37 +144,46 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
     cd yandex-uploader
 
 #### 2. Настройка безопасности (Секреты)
-Проект настроен так, чтобы ваш OAuth-токен никогда не попал в историю коммитов. Создайте в корне проекта файл config.local.bat:
+Проект настроен так, чтобы ваш OAuth-токен никогда не попал в историю коммитов. Пользователям Windows необходимо создать в корне проекта файл `config.local.bat`:
 
     set YANDEX_TOKEN=ваш_реальный_oauth_токен_здесь
 
 #### 3. Сборка приложения
-Вы можете скомпилировать проект под любую целевую платформу:
+Вы можете скомпилировать проект под любую целевую платформу прямо из вашей текущей консоли:
 
-* Для текущей ОС (разработка):
-    go build -o uploader ./cmd/uploader
-
-* Для 32-битной Windows (Windows 7/8/10 x86):
+* **Для 32-битной Windows (Windows 7/8/10 x86):**
     GOOS=windows GOARCH=386 go build -ldflags="-s -w" -o yandex-uploader32.exe ./cmd/uploader
 
-* Для 64-битной Windows:
+* **Для 64-битной Windows:**
     GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader.exe ./cmd/uploader
+
+* **Для Linux (64-bit Server/Desktop):**
+    GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o yandex-uploader-linux ./cmd/uploader
+
+* **Для macOS (Apple Silicon M1/M2/M3):**
+    GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o yandex-uploader-mac ./cmd/uploader
 
 ### 💻 Использование
 
-Запуск осуществляется через командную строку или с помощью универсального скрипта run.bat, который сам определит архитектуру вашего процессора и подтянет токен из config.local.bat.
+#### На Windows:
+Запуск осуществляется через командную строку или с помощью универсального скрипта `run.bat`, который сам определит архитектуру вашего процессора и подтянет токен из `config.local.bat`.
 
-#### Примеры команд:
     # Загрузка одной конкретной папки
     run.bat -path="C:\Users\User\Documents\Reports"
 
     # Загрузка одного файла с указанием кастомного пути для сохранения отчета
     run.bat -path="C:\Photos\vacation.zip" -report="D:\logs\my_links.txt"
 
-    # Массовая загрузка нескольких аргументов подряд
-    run.bat "C:\Data" "D:\Backup.rar"
+#### На Linux / macOS:
+Так как батники на Unix-системах не поддерживаются, передавайте переменную окружения с токеном прямо перед вызовом исполняемого файла:
 
-#### Доступные флаги CLI:
+    # Выдаем права на выполнение бинарнику
+    chmod +x ./yandex-uploader-linux
+
+    # Запускаем загрузку папки
+    YANDEX_TOKEN="ваш_oauth_токен" ./yandex-uploader-linux -path="/home/user/documents"
+
+#### Доступные флаговые параметры CLI:
 | Флаг&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Тип данных | Описание |
 | :--- | :--- | :--- |
 | `-token` | `string` | OAuth-токен Яндекс.Диска (если не задан, берется из переменной YANDEX_TOKEN) |
@@ -172,7 +192,7 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
 
 ### 📄 Пример генерируемого отчета
 
-После завершения работы утилита формирует файл upload_report.txt, где все стрелочки выровнены строго по вертикали, независимо от длины названий файлов:
+После завершения работы утилита формирует файл `upload_report.txt`, где все стрелочки выровнены строго по вертикали, независимо от длины названий файлов:
 
     === DOWNLOAD LINKS (2026-06-06 20:15:32) ===
     [Folder] Reports (Entire directory container tree) -> https://disk.yandex.ru/d/exampleRootDirID
@@ -180,4 +200,4 @@ Upon processing termination, the utility outputs a clean upload_report.txt struc
     [File]     ├── financial_statement.xlsx            -> https://disk.yandex.ru/d/exampleFileID1
     [File]     ├── summary_presentation.pdf            -> https://disk.yandex.ru/d/exampleFileID2
 
-> 🔒 Лицензия: Код распространяется под лицензией MIT. Перед отправкой изменений на GitHub убедитесь, что файлы config.local.bat, *.exe и upload_report.txt находятся в списке исключений вашего .gitignore.
+> 🔒 Лицензия: Код распространяется под лицензией MIT. Перед отправкой изменений на GitHub убедитесь, что локальные файлы конфигурации с секретами и скомпилированные исполняемые файлы добавлены в ваш `.gitignore`.
